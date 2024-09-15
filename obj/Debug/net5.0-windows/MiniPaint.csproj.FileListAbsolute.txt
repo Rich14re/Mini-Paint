@@ -1,0 +1,17 @@
+C:\Users\Сorey\source\repos\MiniPaint\bin\Debug\net5.0-windows\MiniPaint.exe
+C:\Users\Сorey\source\repos\MiniPaint\bin\Debug\net5.0-windows\MiniPaint.deps.json
+C:\Users\Сorey\source\repos\MiniPaint\bin\Debug\net5.0-windows\MiniPaint.runtimeconfig.json
+C:\Users\Сorey\source\repos\MiniPaint\bin\Debug\net5.0-windows\MiniPaint.runtimeconfig.dev.json
+C:\Users\Сorey\source\repos\MiniPaint\bin\Debug\net5.0-windows\MiniPaint.dll
+C:\Users\Сorey\source\repos\MiniPaint\bin\Debug\net5.0-windows\MiniPaint.pdb
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.Form1.resources
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.csproj.GenerateResource.cache
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.AssemblyInfoInputs.cache
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.AssemblyInfo.cs
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.csproj.CoreCompileInputs.cache
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.dll
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\refint\MiniPaint.dll
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.pdb
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\MiniPaint.genruntimeconfig.cache
+C:\Users\Сorey\source\repos\MiniPaint\obj\Debug\net5.0-windows\ref\MiniPaint.dll

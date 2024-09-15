@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "B6QsT/rNDE/3NAUPIdGjUAXTNCfsETmP0uwjxFWSUWsXraXsH4kqjx1QN7CgI85e31MAq2gQr2Q+ABIXRIJe1A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Сorey\\source\\repos\\MiniPaint\\MiniPaint.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Vitaminez\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}
