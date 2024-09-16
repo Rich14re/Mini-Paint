@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Сorey\\source\\repos\\MiniPaint\\MiniPaint.csproj": {}
+    "C:\\Users\\Vitaminez\\Desktop\\ооп2луст\\MiniPaint.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Сorey\\source\\repos\\MiniPaint\\MiniPaint.csproj": {
+    "C:\\Users\\Vitaminez\\Desktop\\ооп2луст\\MiniPaint.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Сorey\\source\\repos\\MiniPaint\\MiniPaint.csproj",
+        "projectUniqueName": "C:\\Users\\Vitaminez\\Desktop\\ооп2луст\\MiniPaint.csproj",
         "projectName": "MiniPaint",
-        "projectPath": "C:\\Users\\Сorey\\source\\repos\\MiniPaint\\MiniPaint.csproj",
+        "projectPath": "C:\\Users\\Vitaminez\\Desktop\\ооп2луст\\MiniPaint.csproj",
         "packagesPath": "C:\\Users\\Vitaminez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Сorey\\source\\repos\\MiniPaint\\obj\\",
+        "outputPath": "C:\\Users\\Vitaminez\\Desktop\\ооп2луст\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vitaminez\\AppData\\Roaming\\NuGet\\NuGet.Config",

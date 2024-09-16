@@ -83,6 +83,26 @@ namespace MiniPaint.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _169262 {
+            get {
+                object obj = ResourceManager.GetObject("169262", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _25402 {
+            get {
+                object obj = ResourceManager.GetObject("25402", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _2661173 {
             get {
                 object obj = ResourceManager.GetObject("2661173", resourceCulture);
@@ -116,6 +136,16 @@ namespace MiniPaint.Properties {
         internal static System.Drawing.Bitmap pngtree_palette_art_illustration_png_image_9122276 {
             get {
                 object obj = ResourceManager.GetObject("pngtree-palette-art-illustration-png-image_9122276", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_icon_125167 {
+            get {
+                object obj = ResourceManager.GetObject("save_icon_125167", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
