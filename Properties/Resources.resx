@@ -121,19 +121,28 @@
   <data name="103456" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\103456.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1485" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1485.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pngtree-palette-art-illustration-png-image_9122276" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pngtree-palette-art-illustration-png-image_9122276.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="save_icon_125167" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save_icon_125167.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2661173" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2661173.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="32475" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\32475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1485" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1485.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="169262" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\169262.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="60690" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\60690.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pngtree-palette-art-illustration-png-image_9122276" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngtree-palette-art-illustration-png-image_9122276.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="32475" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\32475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="25402" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\25402.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
