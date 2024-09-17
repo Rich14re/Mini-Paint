@@ -26,7 +26,7 @@ namespace MiniPaint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox4_Click(object sender, EventArgs e)
+        private void OpenFile_button(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -46,7 +46,7 @@ namespace MiniPaint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void SaveFile_button(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 

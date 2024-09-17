@@ -91,7 +91,7 @@
             pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox8.TabIndex = 8;
             pictureBox8.TabStop = false;
-            pictureBox8.Click += pictureBox8_Click;
+            pictureBox8.Click += SaveFile_button;
             // 
             // pictureBox4
             // 
@@ -103,7 +103,7 @@
             pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 7;
             pictureBox4.TabStop = false;
-            pictureBox4.Click += pictureBox4_Click;
+            pictureBox4.Click += OpenFile_button;
             // 
             // pictureBox3
             // 
