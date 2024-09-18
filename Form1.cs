@@ -56,6 +56,14 @@ namespace MiniPaint
             pictureBox9.BringToFront();
         }
 
+        private void CheckNull(object sender, EventArgs e)
+        {
+            if (Canvas != null)
+            {
+                if (MessageBox.Show(this, "Вы хотите сохранить текущее изображение?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    SaveFile_button(sender, EventArgs.Empty); // вызываем сохранение файла
+            }
+        }
         /// <summary>
         /// открытие файла
         /// </summary>
@@ -63,8 +71,9 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void OpenFile_button(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            CheckNull(sender, e);
 
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
@@ -72,7 +81,13 @@ namespace MiniPaint
             {
                 string filePath = openFileDialog.FileName;
 
-                Canvas.Image = Image.FromFile(filePath); // Помещаем картинку на холст
+                ClearCanvas();
+
+                Image loadedImage = Image.FromFile(filePath);
+
+                graphics.DrawImage(loadedImage, new Rectangle(0, 0, Canvas.Width, Canvas.Height));  // масштабируем изображение под размер Canvas
+
+                Canvas.Invalidate();
             }
         }
         /// <summary>
@@ -96,10 +111,6 @@ namespace MiniPaint
                 {
                     Canvas.Image.Save(filePath); // Сохраняем изображение
                     isSaving = true;
-                }
-                else
-                {
-                    MessageBox.Show("Canvas is null or does not contain an image.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -127,9 +138,13 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
+            // Используем e.Graphics для рисования непосредственно на Canvas
+            Graphics g = e.Graphics;
+
+            // Перерисовываем все рисунки из списка
             foreach (var drawing in draws)
             {
-                using (Pen pen = new Pen(drawing.Color, 20)) // Use color from Drawing
+                using (Pen pen = new Pen(drawing.Color, 20)) // Используем цвет рисунка
                 {
                     pen.StartCap = LineCap.Round;
                     pen.EndCap = LineCap.Round;
@@ -137,20 +152,21 @@ namespace MiniPaint
 
                     if (drawing.Points.Count > 1)
                     {
-                        graphics.DrawLines(pen, drawing.Points.ToArray());
+                        g.DrawLines(pen, drawing.Points.ToArray()); // Рисуем на Canvas через e.Graphics
                     }
                 }
             }
 
+            // Рисуем текущие точки мыши (во время рисования)
             if (mouse_points.Count > 1)
             {
-                using (Pen pen = new Pen(brushColor, 20)) // Current color
+                using (Pen pen = new Pen(brushColor, 20)) // Текущий цвет кисти
                 {
                     pen.StartCap = LineCap.Round;
                     pen.EndCap = LineCap.Round;
                     pen.LineJoin = LineJoin.Round;
 
-                    graphics.DrawLines(pen, mouse_points.ToArray());
+                    g.DrawLines(pen, mouse_points.ToArray()); // Рисуем линии мыши на Canvas
                 }
             }
         }
@@ -217,7 +233,7 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            if (Canvas.Image == null) // если холст пустой - сразу закрыть
+            if (Canvas.Image == null || isSaving) // если холст пустой - сразу закрыть
             {
                 e.Cancel = false;
                 return;
@@ -236,10 +252,24 @@ namespace MiniPaint
                     e.Cancel = true; // отменяем закрытие формы
                 }
             }
-            else 
+            else
             {
                 e.Cancel = false; // разрешаем закрытие формы, если пользователь выбрал "Нет"
             }
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+            CheckNull(sender, e);
+            graphics = Graphics.FromImage(canvas);
+            ClearCanvas();
+            Canvas.Invalidate();
+        }
+
+        private void ClearCanvas()
+        {
+            graphics.Clear(Color.White); // очищаем Canvas белым цветом 
+            draws.Clear(); // очищаем список рисунков
         }
     }
 }

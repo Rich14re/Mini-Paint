@@ -93,6 +93,7 @@
             pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox9.TabIndex = 9;
             pictureBox9.TabStop = false;
+            pictureBox9.Click += pictureBox9_Click;
             // 
             // pictureBox8
             // 
