@@ -23,8 +23,26 @@ namespace MiniPaint
         public Form1()
         {
             InitializeComponent();
+            BackToFrontInPaint();
             DoubleBuffered = true; //убирает мерцание при отрисовке
         }
+        /// <summary>
+        /// все элементы интерфейса поверх холста
+        /// </summary>
+        private void BackToFrontInPaint()
+        {
+            panel1.BringToFront();
+            pictureBox1.BringToFront();
+            pictureBox2.BringToFront();
+            pictureBox3.BringToFront();
+            pictureBox4.BringToFront();
+            pictureBox5.BringToFront();
+            pictureBox6.BringToFront();
+            pictureBox7.BringToFront();
+            pictureBox8.BringToFront();
+            pictureBox9.BringToFront();
+        }
+
         /// <summary>
         /// открытие файла
         /// </summary>
@@ -91,7 +109,8 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
-            if (mouse_points.Count > 1) {
+            if (mouse_points.Count > 1)
+            {
                 Pen pen = new Pen(Color.Black, 20); //изменить на свойства
                 pen.StartCap = LineCap.Round;
                 pen.EndCap = LineCap.Round;
