@@ -81,6 +81,7 @@
             Brush_pb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             Brush_pb1.TabIndex = 10;
             Brush_pb1.TabStop = false;
+            Brush_pb1.Click += Brush_pb1_Click;
             // 
             // pictureBox9
             // 
@@ -177,6 +178,7 @@
             pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // Canvas
             // 

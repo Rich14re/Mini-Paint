@@ -13,6 +13,8 @@ namespace MiniPaint
 {
     public partial class Form1 : Form
     {
+        private bool isModified = false;
+        private bool isLastik = false;
         private bool isSaving = false;
         private bool isDrawing = false;
         private Point lastPoint;
@@ -27,17 +29,13 @@ namespace MiniPaint
         public Form1()
         {
             InitializeComponent();
-
             BackToFrontInPaint();
             DoubleBuffered = true; // убирает мерцание при отрисовке
             colorDialog = new ColorDialog();
-
             canvas = new Bitmap(Canvas.Width, Canvas.Height);
             Canvas.Image = canvas;
-
             graphics = Graphics.FromImage(canvas);
-
-            graphics.Clear(Color.White);
+            graphics.Clear(SystemColors.Control);
         }
         /// <summary>
         /// все элементы интерфейса поверх холста
@@ -58,7 +56,7 @@ namespace MiniPaint
 
         private void CheckNull(object sender, EventArgs e)
         {
-            if (Canvas != null)
+            if (isModified)
             {
                 if (MessageBox.Show(this, "Вы хотите сохранить текущее изображение?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     SaveFile_button(sender, EventArgs.Empty); // вызываем сохранение файла
@@ -80,14 +78,11 @@ namespace MiniPaint
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-
                 ClearCanvas();
-
                 Image loadedImage = Image.FromFile(filePath);
-
                 graphics.DrawImage(loadedImage, new Rectangle(0, 0, Canvas.Width, Canvas.Height));  // масштабируем изображение под размер Canvas
-
                 Canvas.Invalidate();
+                isModified = false;
             }
         }
         /// <summary>
@@ -99,7 +94,6 @@ namespace MiniPaint
         {
             isSaving = false;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-
             saveFileDialog.Filter = "PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif";
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
@@ -107,9 +101,9 @@ namespace MiniPaint
             {
                 string filePath = saveFileDialog.FileName;
 
-                if (Canvas.Image != null) // Убедитесь, что на Canvas есть изображение
+                if (draws.Count != 0) 
                 {
-                    Canvas.Image.Save(filePath); // Сохраняем изображение
+                    Canvas.Image.Save(filePath); // cохраняем изображение
                     isSaving = true;
                 }
             }
@@ -122,7 +116,6 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            //обработка нажатия левой кнопки мыши по полю холста
             if (e.Button == MouseButtons.Left)
             {
                 mouse_points.Add(e.Location);
@@ -130,9 +123,8 @@ namespace MiniPaint
             }
         }
 
-
         /// <summary>
-        /// событие отрисовки(требуется переработка рисования и привязка к кнопке)
+        /// событие отрисовки
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -168,6 +160,7 @@ namespace MiniPaint
 
                     g.DrawLines(pen, mouse_points.ToArray()); // Рисуем линии мыши на Canvas
                 }
+                isModified = true;
             }
         }
 
@@ -185,7 +178,7 @@ namespace MiniPaint
             }
         }
 
-        //отмена предыдущего действия(рисунка)
+        ///отмена предыдущего действия(рисунка)
         private void RestoreLastAction(object sender, EventArgs e)
         {
             if (draws.Count > 0)
@@ -220,10 +213,11 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Palette(object sender, EventArgs e)
         {
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
-                brushColor = colorDialog.Color;
-            }
+            if (!isLastik)
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    brushColor = colorDialog.Color;
+                }
         }
 
         /// <summary>
@@ -233,7 +227,7 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            if (Canvas.Image == null || isSaving) // если холст пустой - сразу закрыть
+            if (isModified || isSaving) // если холст пустой - сразу закрыть
             {
                 e.Cancel = false;
                 return;
@@ -257,7 +251,11 @@ namespace MiniPaint
                 e.Cancel = false; // разрешаем закрытие формы, если пользователь выбрал "Нет"
             }
         }
-
+        /// <summary>
+        /// новый файл
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox9_Click(object sender, EventArgs e)
         {
             CheckNull(sender, e);
@@ -268,8 +266,29 @@ namespace MiniPaint
 
         private void ClearCanvas()
         {
-            graphics.Clear(Color.White); // очищаем Canvas белым цветом 
+            graphics.Clear(SystemColors.Control); // очищаем Canvas белым цветом 
             draws.Clear(); // очищаем список рисунков
+            isModified = false;
+        }
+        /// <summary>
+        /// ластик
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            isLastik = true;
+            brushColor = SystemColors.Control;
+        }
+        /// <summary>
+        /// кисточка
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Brush_pb1_Click(object sender, EventArgs e)
+        {
+            isLastik = false;
+            brushColor = Color.Black;
         }
     }
 }
