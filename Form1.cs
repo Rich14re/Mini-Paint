@@ -15,7 +15,6 @@ namespace MiniPaint
     {
         private bool isDrawing = false;
         private Point lastPoint;
-        private Bitmap canvas;
         private Graphics graphics;
         private ColorDialog colorDialog1;
         private Color brushColor = Color.Black;
@@ -26,7 +25,9 @@ namespace MiniPaint
         {
             InitializeComponent();
             BackToFrontInPaint();
-            DoubleBuffered = true; //убирает мерцание при отрисовке
+            DoubleBuffered = true; 
+            Canvas.Paint += new PaintEventHandler(Canvas_Paint);
+            Canvas.MouseMove += new MouseEventHandler(Canvas_MouseMove);
             colorDialog = new ColorDialog();
         }
         /// <summary>
@@ -55,15 +56,14 @@ namespace MiniPaint
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif"; // устанавливаем фильтр для файлов изображений
-
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // директория, открываемая по клику
+            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
 
-                Canvas.Image = Image.FromFile(filePath); // помещаем картинку на холст
+                Canvas.Image = Image.FromFile(filePath); // Помещаем картинку на холст
             }
         }
         /// <summary>
@@ -76,13 +76,20 @@ namespace MiniPaint
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter = "PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif"; // устанавливаем фильтр для файлов изображений
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // устанавливаем начальную директорию 
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // устанавливаем начальную директорию
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) // выбор места сохранения
             {
                 string filePath = saveFileDialog.FileName;
 
-                canvas.Save(filePath);
+                if (Canvas != null && Canvas.Image != null)
+                {
+                    Canvas.Image.Save(filePath);
+                }
+                else
+                {
+                    MessageBox.Show("Canvas is null or does not contain an image.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
