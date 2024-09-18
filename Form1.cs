@@ -15,19 +15,19 @@ namespace MiniPaint
     {
         private bool isDrawing = false;
         private Point lastPoint;
+        private Bitmap canvas;
         private Graphics graphics;
         private ColorDialog colorDialog1;
         private Color brushColor = Color.Black;
 
-        List<Point> mouse_points = new List<Point>();
+        private List<Drawing> draws = new List<Drawing>();
+        private List<Point> mouse_points = new List<Point>();
 
         public Form1()
         {
             InitializeComponent();
             BackToFrontInPaint();
-            DoubleBuffered = true; 
-            Canvas.Paint += new PaintEventHandler(Canvas_Paint);
-            Canvas.MouseMove += new MouseEventHandler(Canvas_MouseMove);
+            DoubleBuffered = true; //убирает мерцание при отрисовке
             colorDialog = new ColorDialog();
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace MiniPaint
         private void BackToFrontInPaint()
         {
             panel1.BringToFront();
-            pictureBox1.BringToFront();
+            Brush_pb1.BringToFront();
             pictureBox2.BringToFront();
             pictureBox3.BringToFront();
             pictureBox4.BringToFront();
@@ -56,14 +56,15 @@ namespace MiniPaint
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif"; // устанавливаем фильтр для файлов изображений
+
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // директория, открываемая по клику
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
 
-                Canvas.Image = Image.FromFile(filePath); // Помещаем картинку на холст
+                Canvas.Image = Image.FromFile(filePath); // помещаем картинку на холст
             }
         }
         /// <summary>
@@ -76,20 +77,13 @@ namespace MiniPaint
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter = "PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif"; // устанавливаем фильтр для файлов изображений
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // устанавливаем начальную директорию
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // устанавливаем начальную директорию 
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) // выбор места сохранения
             {
                 string filePath = saveFileDialog.FileName;
 
-                if (Canvas != null && Canvas.Image != null)
-                {
-                    Canvas.Image.Save(filePath);
-                }
-                else
-                {
-                    MessageBox.Show("Canvas is null or does not contain an image.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                canvas.Save(filePath);
             }
         }
 
@@ -106,11 +100,8 @@ namespace MiniPaint
                 mouse_points.Add(e.Location);
                 this.Refresh();
             }
-            else
-            {
-                mouse_points.Clear(); //очистка холста после повторного нажатия на холст(требуется переработка)
-            }
         }
+
 
         /// <summary>
         /// событие отрисовки(требуется переработка рисования и привязка к кнопке)
@@ -119,24 +110,66 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
+            foreach (var drawing in draws)
+            {
+                using (Pen pen = new Pen(drawing.Color, 20)) // Use color from Drawing
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.LineJoin = LineJoin.Round;
+
+                    if (drawing.Points.Count > 1)
+                    {
+                        e.Graphics.DrawLines(pen, drawing.Points.ToArray());
+                    }
+                }
+            }
+
             if (mouse_points.Count > 1)
             {
-                Pen pen = new Pen(brushColor, 20); //изменить на свойства. brushColor - это переменная, выбирающая цвет
-                pen.StartCap = LineCap.Round;
-                pen.EndCap = LineCap.Round;
-                pen.LineJoin = LineJoin.Round;
+                using (Pen pen = new Pen(brushColor, 20)) // Current color
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.LineJoin = LineJoin.Round;
 
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
-                e.Graphics.DrawLines(pen, mouse_points.ToArray());
+                    e.Graphics.DrawLines(pen, mouse_points.ToArray());
+                }
             }
         }
+
+        /// <summary>
+        /// событие отпускания ЛКМ. После отпускания добавляет в список рисунков текущий нарисованный рисунок если он нарисован.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Canvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (mouse_points.Count > 0)
+            {
+                draws.Add(new Drawing(new List<Point>(mouse_points), brushColor));
+                mouse_points.Clear();
+            }
+        }
+
+        //отмена предыдущего действия(рисунка)
+        private void RestoreLastAction(object sender, EventArgs e)
+        {
+            if (draws.Count > 0)
+            {
+                draws.Remove(draws.Last());
+            }
+
+            this.Refresh(); //обновление холста
+        }
+
+
         /// <summary>
         /// выбор цвета кисти
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void Palette(object sender, EventArgs e)
         {
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
