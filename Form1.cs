@@ -13,9 +13,9 @@ namespace MiniPaint
 {
     public partial class Form1 : Form
     {
+        private bool isSaving = false;
         private bool isDrawing = false;
         private Point lastPoint;
-        private Bitmap canvas;
         private Graphics graphics;
         private ColorDialog colorDialog1;
         private Color brushColor = Color.Black;
@@ -26,8 +26,12 @@ namespace MiniPaint
         public Form1()
         {
             InitializeComponent();
+
             BackToFrontInPaint();
-            DoubleBuffered = true; //убирает мерцание при отрисовке
+            DoubleBuffered = true; // убирает мерцание при отрисовке
+                                   // Используем существующий PictureBox с именем Canvas
+            Canvas.Paint += new PaintEventHandler(Canvas_Paint);
+            Canvas.MouseMove += new MouseEventHandler(Canvas_MouseMove);
             colorDialog = new ColorDialog();
         }
         /// <summary>
@@ -56,15 +60,14 @@ namespace MiniPaint
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif"; // устанавливаем фильтр для файлов изображений
-
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // директория, открываемая по клику
+            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
 
-                Canvas.Image = Image.FromFile(filePath); // помещаем картинку на холст
+                Canvas.Image = Image.FromFile(filePath); // Помещаем картинку на холст
             }
         }
         /// <summary>
@@ -74,16 +77,25 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void SaveFile_button(object sender, EventArgs e)
         {
+            isSaving = false;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.Filter = "PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif"; // устанавливаем фильтр для файлов изображений
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures); // устанавливаем начальную директорию 
+            saveFileDialog.Filter = "PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK) // выбор места сохранения
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
 
-                canvas.Save(filePath);
+                if (Canvas.Image != null) // Убедитесь, что на Canvas есть изображение
+                {
+                    Canvas.Image.Save(filePath); // Сохраняем изображение
+                    isSaving = true;
+                }
+                else
+                {
+                    MessageBox.Show("Canvas is null or does not contain an image.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -174,6 +186,38 @@ namespace MiniPaint
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 brushColor = colorDialog.Color;
+            }
+        }
+
+        /// <summary>
+        /// обработка закрытия формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            if (Canvas.Image == null) // если холст пустой - сразу закрыть
+            {
+                e.Cancel = false;
+                return;
+            }
+
+            if (MessageBox.Show(this, "Вы хотите сохранить изображение перед выходом?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)  // указываем this, чтобы месседж был по центру формы
+            {
+                SaveFile_button(sender, EventArgs.Empty); // вызываем сохранение файла
+
+                if (isSaving) // если успешно
+                {
+                    e.Cancel = false; // закрытие формы
+                }
+                else
+                {
+                    e.Cancel = true; // отменяем закрытие формы
+                }
+            }
+            else 
+            {
+                e.Cancel = false; // разрешаем закрытие формы, если пользователь выбрал "Нет"
             }
         }
     }
