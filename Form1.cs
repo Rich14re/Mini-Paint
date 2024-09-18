@@ -17,6 +17,8 @@ namespace MiniPaint
         private Point lastPoint;
         private Bitmap canvas;
         private Graphics graphics;
+        private ColorDialog colorDialog1;
+        private Color brushColor = Color.Black;
 
         List<Point> mouse_points = new List<Point>();
 
@@ -25,6 +27,7 @@ namespace MiniPaint
             InitializeComponent();
             BackToFrontInPaint();
             DoubleBuffered = true; //убирает мерцание при отрисовке
+            colorDialog = new ColorDialog();
         }
         /// <summary>
         /// все элементы интерфейса поверх холста
@@ -111,7 +114,7 @@ namespace MiniPaint
         {
             if (mouse_points.Count > 1)
             {
-                Pen pen = new Pen(Color.Black, 20); //изменить на свойства
+                Pen pen = new Pen(brushColor, 20); //изменить на свойства. brushColor - это переменная, выбирающая цвет
                 pen.StartCap = LineCap.Round;
                 pen.EndCap = LineCap.Round;
                 pen.LineJoin = LineJoin.Round;
@@ -119,6 +122,18 @@ namespace MiniPaint
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
                 e.Graphics.DrawLines(pen, mouse_points.ToArray());
+            }
+        }
+        /// <summary>
+        /// выбор цвета кисти
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                brushColor = colorDialog.Color;
             }
         }
     }
