@@ -16,6 +16,7 @@ namespace MiniPaint
         private bool isSaving = false;
         private bool isDrawing = false;
         private Point lastPoint;
+        private Bitmap canvas;
         private Graphics graphics;
         private ColorDialog colorDialog1;
         private Color brushColor = Color.Black;
@@ -29,10 +30,14 @@ namespace MiniPaint
 
             BackToFrontInPaint();
             DoubleBuffered = true; // убирает мерцание при отрисовке
-                                   // Используем существующий PictureBox с именем Canvas
-            Canvas.Paint += new PaintEventHandler(Canvas_Paint);
-            Canvas.MouseMove += new MouseEventHandler(Canvas_MouseMove);
             colorDialog = new ColorDialog();
+
+            canvas = new Bitmap(Canvas.Width, Canvas.Height);
+            Canvas.Image = canvas;
+
+            graphics = Graphics.FromImage(canvas);
+
+            graphics.Clear(Color.White);
         }
         /// <summary>
         /// все элементы интерфейса поверх холста
@@ -110,7 +115,7 @@ namespace MiniPaint
             if (e.Button == MouseButtons.Left)
             {
                 mouse_points.Add(e.Location);
-                this.Refresh();
+                Canvas.Refresh();
             }
         }
 
@@ -132,7 +137,7 @@ namespace MiniPaint
 
                     if (drawing.Points.Count > 1)
                     {
-                        e.Graphics.DrawLines(pen, drawing.Points.ToArray());
+                        graphics.DrawLines(pen, drawing.Points.ToArray());
                     }
                 }
             }
@@ -145,7 +150,7 @@ namespace MiniPaint
                     pen.EndCap = LineCap.Round;
                     pen.LineJoin = LineJoin.Round;
 
-                    e.Graphics.DrawLines(pen, mouse_points.ToArray());
+                    graphics.DrawLines(pen, mouse_points.ToArray());
                 }
             }
         }
@@ -170,9 +175,25 @@ namespace MiniPaint
             if (draws.Count > 0)
             {
                 draws.Remove(draws.Last());
+                graphics.Clear(Color.White);
+                //перерисовывание рисунков
+                foreach (var drawing in draws)
+                {
+                    using (Pen pen = new Pen(drawing.Color, 20))
+                    {
+                        pen.StartCap = LineCap.Round;
+                        pen.EndCap = LineCap.Round;
+                        pen.LineJoin = LineJoin.Round;
+
+                        if (drawing.Points.Count > 1)
+                        {
+                            graphics.DrawLines(pen, drawing.Points.ToArray());
+                        }
+                    }
+                }
             }
 
-            this.Refresh(); //обновление холста
+            Canvas.Refresh(); //обновление холста
         }
 
 
