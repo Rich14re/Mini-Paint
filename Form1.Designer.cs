@@ -94,7 +94,7 @@
             pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox9.TabIndex = 9;
             pictureBox9.TabStop = false;
-            pictureBox9.Click += pictureBox9_Click;
+            pictureBox9.Click += FileOpening;
             // 
             // pictureBox8
             // 
@@ -178,7 +178,7 @@
             pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            pictureBox2.Click += Rubber;
             // 
             // Canvas
             // 
@@ -201,7 +201,7 @@
             Controls.Add(panel1);
             Name = "Form1";
             Text = "Form1";
-            FormClosing += Form1_FormClosing_1;
+            FormClosing += ExitMessage;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Brush_pb1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
