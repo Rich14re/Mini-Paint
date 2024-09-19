@@ -225,7 +225,7 @@ namespace MiniPaint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
+        private void ExitMessage(object sender, FormClosingEventArgs e)
         {
             if (isModified || isSaving) // если холст пустой - сразу закрыть
             {
@@ -256,7 +256,7 @@ namespace MiniPaint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void FileOpening(object sender, EventArgs e)
         {
             CheckNull(sender, e);
             graphics = Graphics.FromImage(canvas);
@@ -275,7 +275,7 @@ namespace MiniPaint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void Rubber(object sender, EventArgs e)
         {
             isLastik = true;
             brushColor = SystemColors.Control;
