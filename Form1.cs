@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace MiniPaint
 {
@@ -19,7 +21,7 @@ namespace MiniPaint
         private bool isDrawing = false;
         private bool isFigureDrawing = false;
 
-        private ushort brush_width = 10; //дефолтное значение ширины кисти 10
+        private ushort brush_width = 1; //дефолтное значение ширины кисти 10
 
         private Point lastPoint;
         private Bitmap canvas;
@@ -47,6 +49,38 @@ namespace MiniPaint
             Short = 5,
             Medium = 15,
             Large = 30,
+        }
+
+        //сохранение рисунков в JSON файл
+        private void SaveDrawingsToJson(string filePath)
+        {
+            string json = JsonConvert.SerializeObject(draws, Formatting.Indented);
+            File.WriteAllText(filePath, json);
+        }
+
+        //загрузка рисунков из JSON файла
+        private void LoadDrawingsFromJson(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            draws = JsonConvert.DeserializeObject<List<Drawing>>(json);
+
+            //перерисовываем все рисунки после загрузки
+            graphics.Clear(SystemColors.Control); // очищаем холст перед перерисовкой
+            foreach (var drawing in draws)
+            {
+                using (Pen pen = new Pen(drawing.Color, drawing.Width))
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.LineJoin = LineJoin.Round;
+
+                    if (drawing.Points.Count > 1)
+                    {
+                        graphics.DrawLines(pen, drawing.Points.ToArray());
+                    }
+                }
+            }
+            Canvas.Refresh(); // обновляем холст
         }
 
         /// <summary>
@@ -84,17 +118,26 @@ namespace MiniPaint
             CheckNull(sender, e);
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
+            openFileDialog.Filter = "JSON Files|*.json|Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                ClearCanvas();
-                Image loadedImage = Image.FromFile(filePath);
-                graphics.DrawImage(loadedImage, new Rectangle(0, 0, Canvas.Width, Canvas.Height));  // масштабируем изображение под размер Canvas
-                Canvas.Invalidate();
-                isModified = false;
+
+                // Загружаем как JSON или как изображение
+                if (Path.GetExtension(filePath).ToLower() == ".json")
+                {
+                    LoadDrawingsFromJson(filePath); // загружаем рисунки из JSON
+                }
+                else
+                {
+                    ClearCanvas();
+                    Image loadedImage = Image.FromFile(filePath);
+                    graphics.DrawImage(loadedImage, new Rectangle(0, 0, Canvas.Width, Canvas.Height));  // масштабируем изображение под размер Canvas
+                    Canvas.Invalidate();
+                    isModified = false;
+                }
             }
         }
         /// <summary>
@@ -106,16 +149,21 @@ namespace MiniPaint
         {
             isSaving = false;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif";
+            saveFileDialog.Filter = "JSON Files|*.json|PNG Files|*.png|JPEG Files|*.jpg|BMP Files|*.bmp|GIF Files|*.gif";
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
 
-                if (draws.Count != 0)
+                // Сохраняем как изображение или как JSON
+                if (Path.GetExtension(filePath).ToLower() == ".json")
                 {
-                    Canvas.Image.Save(filePath); // cохраняем изображение
+                    SaveDrawingsToJson(filePath); // сохраняем рисунки в JSON
+                }
+                else
+                {
+                    Canvas.Image.Save(filePath); // сохраняем изображение
                     isSaving = true;
                 }
             }
