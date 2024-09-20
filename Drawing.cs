@@ -14,12 +14,14 @@ namespace MiniPaint
     internal class Drawing
     {
         public List<Point> Points { get; set; } //положение рисунка на холсте
+        public ushort Width { get; set; }
         public Color Color { get; set; }//цвет текущего рисунка
 
-        public Drawing(List<Point> points, Color color)
+        public Drawing(List<Point> points, Color color, ushort width)
         {
             Points = points;
             Color = color;
+            Width = width;
         }
     }
 }

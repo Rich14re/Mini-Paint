@@ -17,6 +17,10 @@ namespace MiniPaint
         private bool isLastik = false;
         private bool isSaving = false;
         private bool isDrawing = false;
+        private bool isFigureDrawing = false;
+
+        private ushort brush_width = 10; //дефолтное значение ширины кисти 10
+
         private Point lastPoint;
         private Bitmap canvas;
         private Graphics graphics;
@@ -37,6 +41,14 @@ namespace MiniPaint
             graphics = Graphics.FromImage(canvas);
             graphics.Clear(SystemColors.Control);
         }
+
+        private enum Width : ushort
+        {
+            Short = 5,
+            Medium = 15,
+            Large = 30,
+        }
+
         /// <summary>
         /// все элементы интерфейса поверх холста
         /// </summary>
@@ -101,7 +113,7 @@ namespace MiniPaint
             {
                 string filePath = saveFileDialog.FileName;
 
-                if (draws.Count != 0) 
+                if (draws.Count != 0)
                 {
                     Canvas.Image.Save(filePath); // cохраняем изображение
                     isSaving = true;
@@ -136,7 +148,7 @@ namespace MiniPaint
             // Перерисовываем все рисунки из списка
             foreach (var drawing in draws)
             {
-                using (Pen pen = new Pen(drawing.Color, 20)) // Используем цвет рисунка
+                using (Pen pen = new Pen(drawing.Color, drawing.Width)) // Используем цвет рисунка
                 {
                     pen.StartCap = LineCap.Round;
                     pen.EndCap = LineCap.Round;
@@ -144,7 +156,7 @@ namespace MiniPaint
 
                     if (drawing.Points.Count > 1)
                     {
-                        g.DrawLines(pen, drawing.Points.ToArray()); // Рисуем на Canvas через e.Graphics
+                        graphics.DrawLines(pen, drawing.Points.ToArray()); // Рисуем на Canvas через e.Graphics
                     }
                 }
             }
@@ -152,13 +164,13 @@ namespace MiniPaint
             // Рисуем текущие точки мыши (во время рисования)
             if (mouse_points.Count > 1)
             {
-                using (Pen pen = new Pen(brushColor, 20)) // Текущий цвет кисти
+                using (Pen pen = new Pen(brushColor, brush_width)) // Текущий цвет кисти
                 {
                     pen.StartCap = LineCap.Round;
                     pen.EndCap = LineCap.Round;
                     pen.LineJoin = LineJoin.Round;
 
-                    g.DrawLines(pen, mouse_points.ToArray()); // Рисуем линии мыши на Canvas
+                    graphics.DrawLines(pen, mouse_points.ToArray()); // Рисуем линии мыши на Canvas
                 }
                 isModified = true;
             }
@@ -173,7 +185,7 @@ namespace MiniPaint
         {
             if (mouse_points.Count > 0)
             {
-                draws.Add(new Drawing(new List<Point>(mouse_points), brushColor));
+                draws.Add(new Drawing(new List<Point>(mouse_points), brushColor, brush_width));
                 mouse_points.Clear();
             }
         }
@@ -188,7 +200,7 @@ namespace MiniPaint
                 //перерисовывание рисунков
                 foreach (var drawing in draws)
                 {
-                    using (Pen pen = new Pen(drawing.Color, 20))
+                    using (Pen pen = new Pen(drawing.Color, drawing.Width))
                     {
                         pen.StartCap = LineCap.Round;
                         pen.EndCap = LineCap.Round;
@@ -227,7 +239,7 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void ExitMessage(object sender, FormClosingEventArgs e)
         {
-            if (isModified || isSaving) // если холст пустой - сразу закрыть
+            if (!isModified || isSaving) // если холст пустой - сразу закрыть
             {
                 e.Cancel = false;
                 return;
@@ -289,6 +301,11 @@ namespace MiniPaint
         {
             isLastik = false;
             brushColor = Color.Black;
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            brush_width = (ushort)Width.Short;
         }
     }
 }
