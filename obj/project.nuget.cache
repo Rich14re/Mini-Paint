@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "eCruGN2ZEPSzsbF+zMeKeXI5hX4fbGBre9U2Hha2N1gtwdEGwPWerlP0eH2SABaisj/AZ3XeuLpwi/mSf/6FgQ==",
+  "dgSpecHash": "lRgxT3dPWUs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vitaminez\\Desktop\\ооп2луст\\MiniPaint.csproj",
+  "projectFilePath": "D:\\git-mini-paint\\Mini-Paint\\MiniPaint.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Vitaminez\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+    "C:\\Users\\Никита\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }
