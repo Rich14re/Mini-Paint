@@ -24,6 +24,12 @@ namespace MiniPaint
         private bool isDrawing = false;
         private bool isFigureDrawing = false;
 
+        private Point startPoint;
+        private Point endPoint;
+        private bool isDrawingRectangle = false;
+        private bool isDrawingCircle = false;
+        private bool isDrawingLine = false;
+
         private ushort brush_width = 1; //дефолтное значение ширины кисти 10
 
         private Point lastPoint;
@@ -122,7 +128,9 @@ namespace MiniPaint
             pictureBox6.BringToFront();
             pictureBox7.BringToFront();
             pictureBox8.BringToFront();
-            pictureBox9.BringToFront();
+            pictureBox9.BringToFront(); // прямоугольник
+            //круг
+            //линия
         }
 
         private void CheckNull(object sender, EventArgs e)
@@ -216,9 +224,9 @@ namespace MiniPaint
 
         private void CanvasMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (isDrawing && e.Button == MouseButtons.Left)
             {
-                mouse_points.Add(e.Location);
+                endPoint = e.Location;
                 Canvas.Refresh();
             }
         }
@@ -236,33 +244,78 @@ namespace MiniPaint
 
         private void CanvasPaint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics; // используем e.Graphics для рисования непосредственно на Canvas
+            Graphics g = e.Graphics;
 
-            Pen commonPen = new Pen(Color.Black, 1) // создаем ручку с общими настройками
+            Pen commonPen = new Pen(Color.Black, 1)
             {
                 StartCap = LineCap.Round,
                 EndCap = LineCap.Round,
                 LineJoin = LineJoin.Round
             };
 
-            foreach (var drawing in draws) // перерисовываем все рисунки из списка
+            foreach (var drawing in draws)
             {
                 commonPen.Color = drawing.Color;
                 commonPen.Width = drawing.Width;
 
-                if (drawing.Points.Count > 1)
+                if (drawing is RectangleFigure)
+                {
+                    if (drawing.Points.Count == 2)
+                    {
+                        var start = drawing.Points[0];
+                        var end = drawing.Points[1];
+                        var width = Math.Abs(end.X - start.X);
+                        var height = Math.Abs(end.Y - start.Y);
+                        var rect = new Rectangle(Math.Min(start.X, end.X), Math.Min(start.Y, end.Y), width, height);
+                        g.DrawRectangle(commonPen, rect);
+                    }
+                }
+                else if (drawing is Circle)
+                {
+                    if (drawing.Points.Count == 2)
+                    {
+                        var start = drawing.Points[0];
+                        var end = drawing.Points[1];
+                        var radius = (int)Math.Sqrt(Math.Pow(end.X - start.X, 2) + Math.Pow(end.Y - start.Y, 2));
+                        var rect = new Rectangle(start.X - radius, start.Y - radius, radius * 2, radius * 2);
+                        g.DrawEllipse(commonPen, rect);
+                    }
+                }
+                else if (drawing is Line)
+                {
+                    if (drawing.Points.Count == 2)
+                    {
+                        g.DrawLine(commonPen, drawing.Points[0], drawing.Points[1]);
+                    }
+                }
+                else if (drawing.Points.Count > 1)
                 {
                     g.DrawLines(commonPen, drawing.Points.ToArray());
                 }
             }
 
-            if (mouse_points.Count > 1) // рисуем текущие точки мыши (во время рисования)
+            if (isDrawing)
             {
                 commonPen.Color = brushColor;
                 commonPen.Width = brush_width;
 
-                g.DrawLines(commonPen, mouse_points.ToArray());
-                isModified = true;
+                if (isDrawingRectangle)
+                {
+                    var width = Math.Abs(endPoint.X - startPoint.X);
+                    var height = Math.Abs(endPoint.Y - startPoint.Y);
+                    var rect = new Rectangle(Math.Min(startPoint.X, endPoint.X), Math.Min(startPoint.Y, endPoint.Y), width, height);
+                    g.DrawRectangle(commonPen, rect);
+                }
+                else if (isDrawingCircle)
+                {
+                    var radius = (int)Math.Sqrt(Math.Pow(endPoint.X - startPoint.X, 2) + Math.Pow(endPoint.Y - startPoint.Y, 2));
+                    var rect = new Rectangle(startPoint.X - radius, startPoint.Y - radius, radius * 2, radius * 2);
+                    g.DrawEllipse(commonPen, rect);
+                }
+                else if (isDrawingLine)
+                {
+                    g.DrawLine(commonPen, startPoint, endPoint);
+                }
             }
 
             commonPen.Dispose();
@@ -281,12 +334,28 @@ namespace MiniPaint
 
         private void CanvasMouseUp(object sender, MouseEventArgs e)
         {
-            if (mouse_points.Count > 0)
+            if (isDrawing)
             {
-                draws.Add(new Drawing(new List<Point>(mouse_points), brushColor, brush_width));
-                mouse_points.Clear();
-            }
+                endPoint = e.Location;
+                isDrawing = false;
 
+                var points = new List<Point> { startPoint, endPoint };
+
+                if (isDrawingRectangle)
+                {
+                    draws.Add(new RectangleFigure(points[0], points[1], brushColor, brush_width));
+                }
+                else if (isDrawingCircle)
+                {
+                    draws.Add(new Circle(points[0], points[1], brushColor, brush_width));
+                }
+                else if (isDrawingLine)
+                {
+                    draws.Add(new Line(points[0], points[1], brushColor, brush_width));
+                }
+
+                Canvas.Refresh();
+            }
         }
 
         ///отмена предыдущего действия(рисунка)
@@ -455,6 +524,42 @@ namespace MiniPaint
             {
                 brush_width = (ushort)trackBar.Value;
             }
+        }
+
+        private void Canvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            action = () => CanvasDown(sender, e);
+            action();
+        }
+
+        private void CanvasDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                startPoint = e.Location;
+                isDrawing = true;
+            }
+        }
+
+        private enum DrawingMode
+        {
+            Rectangle,
+            Triangle,
+            Circle,
+            Line
+        }
+
+        private void SetDrawingMode(DrawingMode mode)
+        {
+            isDrawingRectangle = mode == DrawingMode.Rectangle;
+            isDrawingCircle = mode == DrawingMode.Circle;
+            isDrawingLine = mode == DrawingMode.Line;
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            action = () => SetDrawingMode(DrawingMode.Rectangle);
+            action();
         }
     }
 }

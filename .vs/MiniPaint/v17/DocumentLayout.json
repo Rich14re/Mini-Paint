@@ -11,20 +11,20 @@
       "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:rectanglefigure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|d:\\git-mini-paint\\mini-paint_v2\\mini-paint\\line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|d:\\git-mini-paint\\mini-paint_v2\\mini-paint\\circle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:circle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|d:\\git-mini-paint\\mini-paint_v2\\mini-paint\\drawing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:drawing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|d:\\git-mini-paint\\mini-paint_v2\\mini-paint\\line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|d:\\git-mini-paint\\mini-paint_v2\\mini-paint\\circle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|solutionrelative:circle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{305B94F7-4AB1-4F73-8F16-E60F24D9733F}|MiniPaint.csproj|d:\\git-mini-paint\\mini-paint_v2\\mini-paint\\colorjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,29 +42,27 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Circle.cs",
               "DocumentMoniker": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Circle.cs",
               "RelativeDocumentMoniker": "Circle.cs",
               "ToolTip": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Circle.cs",
               "RelativeToolTip": "Circle.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAEAAAA",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAmwBYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-25T21:21:44.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-25T21:21:44.796Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Line.cs",
               "DocumentMoniker": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Line.cs",
               "RelativeDocumentMoniker": "Line.cs",
               "ToolTip": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Line.cs",
               "RelativeToolTip": "Line.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAEAAAA",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAiwBgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-25T21:21:30.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-25T21:21:30.279Z"
             },
             {
               "$type": "Document",
@@ -74,14 +72,14 @@
               "RelativeDocumentMoniker": "RectangleFigure.cs",
               "ToolTip": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\RectangleFigure.cs",
               "RelativeToolTip": "RectangleFigure.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAiwBAAAAAfAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-25T21:16:47.877Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
               "DocumentMoniker": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -101,18 +99,17 @@
               "RelativeToolTip": "ColorJsonConverter.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAABUAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-20T20:36:46.444Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-20T20:36:46.444Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Drawing.cs",
               "DocumentMoniker": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Drawing.cs",
               "RelativeDocumentMoniker": "Drawing.cs",
               "ToolTip": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Drawing.cs",
               "RelativeToolTip": "Drawing.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAkwBAAAAALAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAIwBAAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-20T08:06:48.273Z",
               "EditorCaption": ""
@@ -125,7 +122,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\Form1.cs*",
               "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AQIAABQBAAAAAAAAAAAowB8BAAAmAAAA",
+              "ViewState": "AQIAAE4BAAAAAAAAAAAqwFoBAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-18T21:45:36.552Z",
               "EditorCaption": ""
