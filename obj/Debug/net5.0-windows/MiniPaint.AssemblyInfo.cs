@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MiniPaint")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+705debf2345b616d2b6a2ea127871845ae012e95")]
 [assembly: System.Reflection.AssemblyProductAttribute("MiniPaint")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MiniPaint")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
