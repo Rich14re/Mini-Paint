@@ -98,7 +98,6 @@ D:\git-mini-paint\Mini-Paint_v2\Mini-Paint\obj\Debug\net5.0-windows\refint\MiniP
 D:\git-mini-paint\Mini-Paint_v2\Mini-Paint\obj\Debug\net5.0-windows\MiniPaint.pdb
 D:\git-mini-paint\Mini-Paint_v2\Mini-Paint\obj\Debug\net5.0-windows\MiniPaint.genruntimeconfig.cache
 D:\git-mini-paint\Mini-Paint_v2\Mini-Paint\obj\Debug\net5.0-windows\ref\MiniPaint.dll
-D:\git-mini-paint\Mini-Paint_v2\Mini-Paint\obj\Debug\net5.0-windows\MiniPaint.FigurePicker.resources
 C:\Users\Vitaminez\Desktop\77777\bin\Debug\net5.0-windows\MiniPaint.exe
 C:\Users\Vitaminez\Desktop\77777\bin\Debug\net5.0-windows\MiniPaint.deps.json
 C:\Users\Vitaminez\Desktop\77777\bin\Debug\net5.0-windows\MiniPaint.runtimeconfig.json

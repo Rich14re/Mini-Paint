@@ -14,7 +14,7 @@ namespace MiniPaint
     /// чтобы при изменении цвета при перерисовке холста он не изменял цвет всех рисунков на холсте
     /// </summary>
     [Serializable]
-    internal class Drawing
+    public  class Drawing
     {
         public List<Point> Points { get; set; } //положение рисунка на холсте
         public ushort Width { get; set; }

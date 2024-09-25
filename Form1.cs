@@ -286,6 +286,7 @@ namespace MiniPaint
                 draws.Add(new Drawing(new List<Point>(mouse_points), brushColor, brush_width));
                 mouse_points.Clear();
             }
+
         }
 
         ///отмена предыдущего действия(рисунка)
