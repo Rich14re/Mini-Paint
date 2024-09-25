@@ -70,15 +70,17 @@
             panel1.Controls.Add(pictureBox2);
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
             panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(825, 44);
+            panel1.Size = new System.Drawing.Size(943, 59);
             panel1.TabIndex = 0;
             // 
             // trackBar1
             // 
-            trackBar1.Location = new System.Drawing.Point(425, 0);
+            trackBar1.Location = new System.Drawing.Point(486, 0);
+            trackBar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new System.Drawing.Size(240, 45);
+            trackBar1.Size = new System.Drawing.Size(274, 56);
             trackBar1.TabIndex = 11;
             trackBar1.ValueChanged += trackBar1_ValueChanged;
             // 
@@ -86,9 +88,10 @@
             // 
             Brush_pb1.BackColor = System.Drawing.SystemColors.Info;
             Brush_pb1.Image = Properties.Resources._103456;
-            Brush_pb1.Location = new System.Drawing.Point(13, 3);
+            Brush_pb1.Location = new System.Drawing.Point(15, 4);
+            Brush_pb1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Brush_pb1.Name = "Brush_pb1";
-            Brush_pb1.Size = new System.Drawing.Size(41, 38);
+            Brush_pb1.Size = new System.Drawing.Size(47, 51);
             Brush_pb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             Brush_pb1.TabIndex = 10;
             Brush_pb1.TabStop = false;
@@ -99,9 +102,10 @@
             pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             pictureBox9.BackColor = System.Drawing.SystemColors.Info;
             pictureBox9.Image = Properties.Resources._169262;
-            pictureBox9.Location = new System.Drawing.Point(678, 3);
+            pictureBox9.Location = new System.Drawing.Point(775, 4);
+            pictureBox9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new System.Drawing.Size(41, 38);
+            pictureBox9.Size = new System.Drawing.Size(47, 51);
             pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox9.TabIndex = 9;
             pictureBox9.TabStop = false;
@@ -112,9 +116,10 @@
             pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             pictureBox8.BackColor = System.Drawing.SystemColors.Info;
             pictureBox8.Image = Properties.Resources.save_icon_125167;
-            pictureBox8.Location = new System.Drawing.Point(725, 3);
+            pictureBox8.Location = new System.Drawing.Point(829, 4);
+            pictureBox8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new System.Drawing.Size(41, 38);
+            pictureBox8.Size = new System.Drawing.Size(47, 51);
             pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox8.TabIndex = 8;
             pictureBox8.TabStop = false;
@@ -125,9 +130,10 @@
             pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             pictureBox4.BackColor = System.Drawing.SystemColors.Info;
             pictureBox4.Image = Properties.Resources._25402;
-            pictureBox4.Location = new System.Drawing.Point(772, 3);
+            pictureBox4.Location = new System.Drawing.Point(882, 4);
+            pictureBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new System.Drawing.Size(41, 38);
+            pictureBox4.Size = new System.Drawing.Size(47, 51);
             pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 7;
             pictureBox4.TabStop = false;
@@ -137,9 +143,10 @@
             // 
             pictureBox3.BackColor = System.Drawing.SystemColors.Info;
             pictureBox3.Image = Properties.Resources.pngtree_palette_art_illustration_png_image_9122276;
-            pictureBox3.Location = new System.Drawing.Point(107, 3);
+            pictureBox3.Location = new System.Drawing.Point(122, 4);
+            pictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new System.Drawing.Size(41, 38);
+            pictureBox3.Size = new System.Drawing.Size(47, 51);
             pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 2;
             pictureBox3.TabStop = false;
@@ -149,9 +156,10 @@
             // 
             pictureBox7.BackColor = System.Drawing.SystemColors.Info;
             pictureBox7.Image = Properties.Resources._60690;
-            pictureBox7.Location = new System.Drawing.Point(201, 3);
+            pictureBox7.Location = new System.Drawing.Point(230, 4);
+            pictureBox7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new System.Drawing.Size(41, 38);
+            pictureBox7.Size = new System.Drawing.Size(47, 51);
             pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox7.TabIndex = 6;
             pictureBox7.TabStop = false;
@@ -161,32 +169,35 @@
             // 
             pictureBox6.BackColor = System.Drawing.SystemColors.Info;
             pictureBox6.Image = Properties.Resources._1485;
-            pictureBox6.Location = new System.Drawing.Point(369, 3);
+            pictureBox6.Location = new System.Drawing.Point(422, 4);
+            pictureBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new System.Drawing.Size(41, 38);
+            pictureBox6.Size = new System.Drawing.Size(47, 51);
             pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox6.TabIndex = 5;
             pictureBox6.TabStop = false;
-            pictureBox6.Click += pictureBox6_Click;
             // 
             // pictureBox5
             // 
             pictureBox5.BackColor = System.Drawing.SystemColors.Info;
             pictureBox5.Image = Properties.Resources._32475;
-            pictureBox5.Location = new System.Drawing.Point(154, 3);
+            pictureBox5.Location = new System.Drawing.Point(176, 4);
+            pictureBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new System.Drawing.Size(41, 38);
+            pictureBox5.Size = new System.Drawing.Size(47, 51);
             pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 4;
             pictureBox5.TabStop = false;
+            pictureBox5.Click += ChangeFigureButton;
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = System.Drawing.SystemColors.Info;
             pictureBox2.Image = Properties.Resources._2661173;
-            pictureBox2.Location = new System.Drawing.Point(60, 3);
+            pictureBox2.Location = new System.Drawing.Point(69, 4);
+            pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(41, 38);
+            pictureBox2.Size = new System.Drawing.Size(47, 51);
             pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
@@ -194,10 +205,10 @@
             // 
             // Canvas
             // 
-            Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            Canvas.Location = new System.Drawing.Point(0, 44);
+            Canvas.Location = new System.Drawing.Point(0, 59);
+            Canvas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Canvas.Name = "Canvas";
-            Canvas.Size = new System.Drawing.Size(825, 377);
+            Canvas.Size = new System.Drawing.Size(943, 503);
             Canvas.TabIndex = 1;
             Canvas.TabStop = false;
             Canvas.Paint += Canvas_Paint;
@@ -206,12 +217,13 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(825, 421);
+            ClientSize = new System.Drawing.Size(943, 561);
             Controls.Add(Canvas);
             Controls.Add(panel1);
-            MinimumSize = new System.Drawing.Size(841, 460);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            MinimumSize = new System.Drawing.Size(959, 598);
             Name = "Form1";
             Text = "Form1";
             FormClosing += ExitMessage;

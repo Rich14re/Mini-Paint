@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vitaminez\\Desktop\\65464\\MiniPaint.csproj": {}
+    "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\MiniPaint.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vitaminez\\Desktop\\65464\\MiniPaint.csproj": {
+    "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\MiniPaint.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vitaminez\\Desktop\\65464\\MiniPaint.csproj",
+        "projectUniqueName": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\MiniPaint.csproj",
         "projectName": "MiniPaint",
-        "projectPath": "C:\\Users\\Vitaminez\\Desktop\\65464\\MiniPaint.csproj",
-        "packagesPath": "C:\\Users\\Vitaminez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vitaminez\\Desktop\\65464\\obj\\",
+        "projectPath": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\MiniPaint.csproj",
+        "packagesPath": "C:\\Users\\Никита\\.nuget\\packages\\",
+        "outputPath": "D:\\git-mini-paint\\Mini-Paint_v2\\Mini-Paint\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Vitaminez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Никита\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -56,12 +61,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -70,7 +69,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

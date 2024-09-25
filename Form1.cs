@@ -46,13 +46,34 @@ namespace MiniPaint
             Canvas.Image = canvas;
             graphics = Graphics.FromImage(canvas);
             graphics.Clear(SystemColors.Control);
+            this.Resize += Form1_Resize;
         }
 
-        private enum Width : ushort
+        private void Form1_Resize(object sender, EventArgs e)
         {
-            Short = 5,
-            Medium = 15,
-            Large = 30,
+            // Обновляем размеры холста
+            canvas = new Bitmap(Canvas.Width, Canvas.Height);
+            Canvas.Image = canvas;
+            graphics = Graphics.FromImage(canvas);
+            graphics.Clear(SystemColors.Control);
+
+            // Перерисовываем все рисунки
+            foreach (var drawing in draws)
+            {
+                using (Pen pen = new Pen(drawing.Color, drawing.Width))
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.LineJoin = LineJoin.Round;
+
+                    if (drawing.Points.Count > 1)
+                    {
+                        graphics.DrawLines(pen, drawing.Points.ToArray());
+                    }
+                }
+            }
+
+            Canvas.Refresh(); // Обновляем холст
         }
 
         //сохранение рисунков в JSON файл
@@ -106,7 +127,7 @@ namespace MiniPaint
 
         private void CheckNull(object sender, EventArgs e)
         {
-            if (isModified)
+            if (isModified && !isSaving)
             {
                 if (MessageBox.Show(this, "Вы хотите сохранить текущее изображение?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     SaveFile_button(sender, EventArgs.Empty); // вызываем сохранение файла
@@ -173,19 +194,14 @@ namespace MiniPaint
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
-
-                // Сохраняем как изображение или как JSON
-                if (Path.GetExtension(filePath).ToLower() == ".json")
+                if (Path.GetExtension(filePath).ToLower() == ".json") // сохраняем как JSON
                 {
-                    SaveDrawingsToJson(filePath); // сохраняем рисунки в JSON
-                }
-                else
-                {
-                    Canvas.Image.Save(filePath); // сохраняем изображение
+                    SaveDrawingsToJson(filePath);
                     isSaving = true;
                 }
             }
         }
+
 
         /// <summary>
         /// событие движение мыши(считывание нажатия левой кнопки мыши)
@@ -220,38 +236,36 @@ namespace MiniPaint
 
         private void CanvasPaint(object sender, PaintEventArgs e)
         {
-            // Используем e.Graphics для рисования непосредственно на Canvas
-            Graphics g = e.Graphics;
+            Graphics g = e.Graphics; // используем e.Graphics для рисования непосредственно на Canvas
 
-            // Перерисовываем все рисунки из списка
-            foreach (var drawing in draws)
+            Pen commonPen = new Pen(Color.Black, 1) // создаем ручку с общими настройками
             {
-                using (Pen pen = new Pen(drawing.Color, drawing.Width)) // Используем цвет рисунка
-                {
-                    pen.StartCap = LineCap.Round;
-                    pen.EndCap = LineCap.Round;
-                    pen.LineJoin = LineJoin.Round;
+                StartCap = LineCap.Round,
+                EndCap = LineCap.Round,
+                LineJoin = LineJoin.Round
+            };
 
-                    if (drawing.Points.Count > 1)
-                    {
-                        graphics.DrawLines(pen, drawing.Points.ToArray()); // Рисуем на Canvas через e.Graphics
-                    }
+            foreach (var drawing in draws) // перерисовываем все рисунки из списка
+            {
+                commonPen.Color = drawing.Color;
+                commonPen.Width = drawing.Width;
+
+                if (drawing.Points.Count > 1)
+                {
+                    g.DrawLines(commonPen, drawing.Points.ToArray());
                 }
             }
 
-            // Рисуем текущие точки мыши (во время рисования)
-            if (mouse_points.Count > 1)
+            if (mouse_points.Count > 1) // рисуем текущие точки мыши (во время рисования)
             {
-                using (Pen pen = new Pen(brushColor, brush_width)) // Текущий цвет кисти
-                {
-                    pen.StartCap = LineCap.Round;
-                    pen.EndCap = LineCap.Round;
-                    pen.LineJoin = LineJoin.Round;
+                commonPen.Color = brushColor;
+                commonPen.Width = brush_width;
 
-                    graphics.DrawLines(pen, mouse_points.ToArray()); // Рисуем линии мыши на Canvas
-                }
+                g.DrawLines(commonPen, mouse_points.ToArray());
                 isModified = true;
             }
+
+            commonPen.Dispose();
         }
 
         /// <summary>
@@ -286,7 +300,7 @@ namespace MiniPaint
             if (draws.Count > 0)
             {
                 draws.Remove(draws.Last());
-                graphics.Clear(Color.White);
+                graphics.Clear(SystemColors.Control);
                 //перерисовывание рисунков
                 foreach (var drawing in draws)
                 {
@@ -427,22 +441,28 @@ namespace MiniPaint
             brushColor = currentBrushColor; // восстанавливаем текущий цвет кисти
         }
 
-        /// <summary>
-        /// ширина
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            brush_width = (ushort)Width.Short;
+            action = () => track(sender, e);
+            action();
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        private void track(object sender, EventArgs e)
         {
             TrackBar trackBar = sender as TrackBar;
             if (trackBar != null)
             {
                 brush_width = (ushort)trackBar.Value;
+            }
+        }
+
+        private void ChangeFigureButton(object sender, EventArgs e)
+        {
+            FigurePicker shapeForm = new FigurePicker();
+            if (shapeForm.ShowDialog() == DialogResult.OK)
+            {
+                string selectedShape = shapeForm.SelectedShape;
+                MessageBox.Show("Вы выбрали: " + selectedShape);
             }
         }
     }
