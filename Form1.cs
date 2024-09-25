@@ -455,15 +455,5 @@ namespace MiniPaint
                 brush_width = (ushort)trackBar.Value;
             }
         }
-
-        private void ChangeFigureButton(object sender, EventArgs e)
-        {
-            FigurePicker shapeForm = new FigurePicker();
-            if (shapeForm.ShowDialog() == DialogResult.OK)
-            {
-                string selectedShape = shapeForm.SelectedShape;
-                MessageBox.Show("Вы выбрали: " + selectedShape);
-            }
-        }
     }
 }

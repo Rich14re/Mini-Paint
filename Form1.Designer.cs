@@ -178,7 +178,6 @@
             pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 4;
             pictureBox5.TabStop = false;
-            pictureBox5.Click += ChangeFigureButton;
             // 
             // pictureBox2
             // 
