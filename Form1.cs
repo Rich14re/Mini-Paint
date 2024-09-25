@@ -15,6 +15,9 @@ namespace MiniPaint
 {
     public partial class Form1 : Form
     {
+        public delegate void ActionDelegate();
+        private ActionDelegate action;
+
         private bool isModified = false;
         private bool isLastik = false;
         private bool isSaving = false;
@@ -28,6 +31,7 @@ namespace MiniPaint
         private Graphics graphics;
         private ColorDialog colorDialog1;
         private Color brushColor = Color.Black;
+        private Color currentBrushColor = Color.Black;
 
         private List<Drawing> draws = new List<Drawing>();
         private List<Point> mouse_points = new List<Point>();
@@ -37,7 +41,7 @@ namespace MiniPaint
             InitializeComponent();
             BackToFrontInPaint();
             DoubleBuffered = true; // убирает мерцание при отрисовке
-            colorDialog = new ColorDialog();
+            colorDialog1 = new ColorDialog();
             canvas = new Bitmap(Canvas.Width, Canvas.Height);
             Canvas.Image = canvas;
             graphics = Graphics.FromImage(canvas);
@@ -108,12 +112,19 @@ namespace MiniPaint
                     SaveFile_button(sender, EventArgs.Empty); // вызываем сохранение файла
             }
         }
+
         /// <summary>
         /// открытие файла
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OpenFile_button(object sender, EventArgs e)
+        {
+            action = () => OpenFile(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void OpenFile(object sender, EventArgs e)
         {
             CheckNull(sender, e);
 
@@ -140,12 +151,19 @@ namespace MiniPaint
                 }
             }
         }
+
         /// <summary>
         /// сохранение файла
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SaveFile_button(object sender, EventArgs e)
+        {
+            action = () => Save(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void Save(object sender, EventArgs e)
         {
             isSaving = false;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -176,6 +194,12 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
+            action = () => CanvasMouseMove(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void CanvasMouseMove(object sender, MouseEventArgs e)
+        {
             if (e.Button == MouseButtons.Left)
             {
                 mouse_points.Add(e.Location);
@@ -189,6 +213,12 @@ namespace MiniPaint
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Canvas_Paint(object sender, PaintEventArgs e)
+        {
+            action = () => CanvasPaint(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void CanvasPaint(object sender, PaintEventArgs e)
         {
             // Используем e.Graphics для рисования непосредственно на Canvas
             Graphics g = e.Graphics;
@@ -231,6 +261,12 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Canvas_MouseUp(object sender, MouseEventArgs e)
         {
+            action = () => CanvasMouseUp(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void CanvasMouseUp(object sender, MouseEventArgs e)
+        {
             if (mouse_points.Count > 0)
             {
                 draws.Add(new Drawing(new List<Point>(mouse_points), brushColor, brush_width));
@@ -240,6 +276,12 @@ namespace MiniPaint
 
         ///отмена предыдущего действия(рисунка)
         private void RestoreLastAction(object sender, EventArgs e)
+        {
+            action = () => RestoreLast(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void RestoreLast(object sender, EventArgs e)
         {
             if (draws.Count > 0)
             {
@@ -265,7 +307,6 @@ namespace MiniPaint
             Canvas.Refresh(); //обновление холста
         }
 
-
         /// <summary>
         /// выбор цвета кисти
         /// </summary>
@@ -273,10 +314,17 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Palette(object sender, EventArgs e)
         {
+            action = () => Palet(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void Palet(object sender, EventArgs e)
+        {
             if (!isLastik)
-                if (colorDialog.ShowDialog() == DialogResult.OK)
+                if (colorDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    brushColor = colorDialog.Color;
+                    brushColor = colorDialog1.Color;
+                    currentBrushColor = brushColor; // сохраняем текущий цвет кисти
                 }
         }
 
@@ -286,6 +334,12 @@ namespace MiniPaint
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ExitMessage(object sender, FormClosingEventArgs e)
+        {
+            action = () => ExitMes(sender, e); // создаем метод без параметров, который вызывает метод с параметрами
+            action();
+        }
+
+        private void ExitMes(object sender, FormClosingEventArgs e)
         {
             if (!isModified || isSaving) // если холст пустой - сразу закрыть
             {
@@ -311,12 +365,19 @@ namespace MiniPaint
                 e.Cancel = false; // разрешаем закрытие формы, если пользователь выбрал "Нет"
             }
         }
+
         /// <summary>
         /// новый файл
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void FileOpening(object sender, EventArgs e)
+        {
+            action = () => FileOpen(sender, e);
+            action();
+        }
+
+        private void FileOpen(object sender, EventArgs e)
         {
             CheckNull(sender, e);
             graphics = Graphics.FromImage(canvas);
@@ -326,10 +387,11 @@ namespace MiniPaint
 
         private void ClearCanvas()
         {
-            graphics.Clear(SystemColors.Control); // очищаем Canvas белым цветом 
+            graphics.Clear(SystemColors.Control); // очищаем Canvas белым цветом
             draws.Clear(); // очищаем список рисунков
             isModified = false;
         }
+
         /// <summary>
         /// ластик
         /// </summary>
@@ -337,9 +399,17 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Rubber(object sender, EventArgs e)
         {
+            action = Rub;
+            action();
+        }
+
+        private void Rub()
+        {
+            currentBrushColor = brushColor; // Сохраняем текущий цвет кисти
             isLastik = true;
             brushColor = SystemColors.Control;
         }
+
         /// <summary>
         /// кисточка
         /// </summary>
@@ -347,13 +417,33 @@ namespace MiniPaint
         /// <param name="e"></param>
         private void Brush_pb1_Click(object sender, EventArgs e)
         {
-            isLastik = false;
-            brushColor = Color.Black;
+            action = Brush;
+            action();
         }
 
+        private void Brush()
+        {
+            isLastik = false;
+            brushColor = currentBrushColor; // восстанавливаем текущий цвет кисти
+        }
+
+        /// <summary>
+        /// ширина
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             brush_width = (ushort)Width.Short;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            TrackBar trackBar = sender as TrackBar;
+            if (trackBar != null)
+            {
+                brush_width = (ushort)trackBar.Value;
+            }
         }
     }
 }
